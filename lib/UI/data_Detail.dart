@@ -33,15 +33,22 @@ class _DetailState extends State<Detail> {
               SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.all(16),
+                child:   Text('Discreption',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 22,),),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(16),
                 child: Text("Ginger (Zingiber officinale) is a flowering plant whose rhizome, ginger root or ginger, is widely used as a spice and a folk medicine.[2] It is a herbaceous perennial which grows annual pseudostems (false stems made of the rolled bases of leaves) about one meter tall bearing narrow leaf blades. The inflorescences bear flowers having pale yellow petals with purple edges, and arise directly from the rhizome",
-                  style: TextStyle(fontSize: 20,
+                  style: TextStyle(fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w400),),
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text("Ginger (Zingiber officinale) is a flowering plant whose rhizome, ginger root or ginger, is widely used as a spice and a folk medicine.[2] It is a herbaceous perennial which grows annual pseudostems (false stems made of the rolled bases of leaves) about one meter tall bearing narrow leaf blades. The inflorescences bear flowers having pale yellow petals with purple edges, and arise directly from the rhizome",
-                  style: TextStyle(fontSize: 20,
+                  style: TextStyle(fontSize: 18,
                       color: Colors.black,
                       fontWeight: FontWeight.w400),),
               )
