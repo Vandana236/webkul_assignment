@@ -1,14 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grocery1/provider/cart_provider.dart';
+import 'package:grocery1/provider/product_provider.dart';
+import 'package:provider/provider.dart';
 
 import 'UI/splash.dart';
 
-
 void main() {
-
-  runApp(const MyApp());
-
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
