@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'home.dart';
+
 class SignUpScreen extends StatefulWidget {
   @override
   State<SignUpScreen> createState() => _SignUpScreenState();
@@ -71,12 +73,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 SizedBox(height: 40,),
                 ElevatedButton(
                   onPressed: () {
+                    print("object");
+                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  HomePage()));
                     // Button action
                   },
-                  // style: ElevatedButton.styleFrom(
-                  //   primary: Colors.blue, // Set the background color
-                  //   onPrimary: Colors.white, // Set the text color
-                  // ),
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all<Color>(Color(0xFF00008B)),
 
