@@ -20,42 +20,47 @@ class ProductDetailScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              product.title,
-              style: TextStyle(
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Image.network(
+                product.image,
               ),
-            ),
+              Text(
+                product.title,
+                style: TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
 
-            SizedBox(height: 8.0),
-            Text(
-              'INR${product.price.toStringAsFixed(2)}',
-              style: TextStyle(
-                fontSize: 18.0,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
+              SizedBox(height: 8.0),
+              Text(
+                'INR${product.price.toStringAsFixed(2)}',
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.green,
+                ),
               ),
-            ),
-            SizedBox(height: 8.0),
-            Text(
-              product?.description??"",
-              style: TextStyle(fontSize: 16.0),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                cartProvider.addToCart(product);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Product added to cart')),
-                );
-              },
-              child: Text('Add to Cart'),
-            ),
-          ],
+              SizedBox(height: 8.0),
+              Text(
+                product?.description??"",
+                style: TextStyle(fontSize: 16.0),
+              ),
+              SizedBox(height: 16.0),
+              ElevatedButton(
+                onPressed: () {
+                  cartProvider.addToCart(product);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Product added to cart')),
+                  );
+                },
+                child: Text('Add to Cart'),
+              ),
+            ],
+          ),
         ),
       ),
     );
