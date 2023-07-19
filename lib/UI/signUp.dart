@@ -128,33 +128,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       fontSize: 18,),),
                 ),
                 const SizedBox(height: 50.0),
-                const Center(
-                  child: Text("- Or Sign in with -",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-                const SizedBox(height: 50,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: Image.asset('assets/images/google_image.png')),
-                    SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: Image.asset('assets/images/facebook_image.png')),
-                    SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: Image.asset('assets/images/twitter_image.png')),
-                  ],
-                ),
-
               ],
             ),
           ),

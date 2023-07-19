@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 
 import '../../provider/cart_provider.dart';
 import '../../provider/product_provider.dart';
+import '../login.dart';
 
 class ProductListingScreen extends StatefulWidget {
   @override
@@ -55,6 +56,24 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
                 ),
               ),
             ],
+          ),
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              if (value == 'signOut') {
+                Future.delayed(Duration.zero, () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
+                });
+              } else if (value == 'option2') {
+              }
+              },
+            itemBuilder: (BuildContext context) {
+              return [
+                PopupMenuItem<String>(
+                  value: 'signOut',
+                  child: Text('SignOut'),
+                ),
+                ];
+            },
           ),
         ],
       ),

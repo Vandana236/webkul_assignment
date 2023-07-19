@@ -100,33 +100,6 @@ class _LogInState extends State<LogIn> {
                           fontSize: 18,),),
                   ),
                 const SizedBox(height: 50.0),
-               /* Center(
-                  child: Text("- Or Sign in with -",
-                    style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.w400),
-                  ),
-                ),
-                SizedBox(height: 50,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                     SizedBox(
-                      height: 30,
-                       width: 30,
-                child: Image.asset('assets/images/google_image.png')),
-                    SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: Image.asset('assets/images/facebook_image.png')),
-                    SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: Image.asset('assets/images/twitter_image.png')),
-                  ],
-                ),
-                SizedBox(height: 50,),*/
                 Center(
                   child: RichText(
                     text:   TextSpan(
