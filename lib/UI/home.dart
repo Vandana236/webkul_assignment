@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'data_Detail.dart';
+import 'login_controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -10,51 +11,71 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // final getDataController = Get.put(LoginController());
+  late final LoginController getDataController;
+
+ @override
+  void initState() {
+   super.initState();
+   print("data is coming ");
+   getDataController = Get.put(LoginController());
+   getDataController.getDataFromApi();
+   // print("data is coming ");
+   // getDataController.getDataFromApi();
+   //  super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return     Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF00008B),
-        title: Text("Home"),),
-      body:   Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: ListView.builder(
-          itemCount: 8,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-              title: Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: GestureDetector(
-                  onTap: () {
-                    print("object");
-                    Navigator.push(context, MaterialPageRoute(builder: (context) =>  Detail()));
-                    // Button action
-                  },
-                  child: Container(
-                    height: 150,
-                    width: 300,
-                    color: Colors.blue,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children:[
-                          Icon(Icons.account_circle,size: 80,),
-                          SizedBox(width: 20,),
-                          Text("Data",
-                            style: TextStyle(fontSize: 15,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w400),),
-                        ]
+    return  Obx(() =>
+        Scaffold(
+            appBar: AppBar(
+              backgroundColor: Color(0xFF00008B),
+              title: Text("Home"),),
+            body:   !getDataController.isLoading.value?
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: ListView.builder(
+                itemCount: getDataController.getDataModel.value.data!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          print("object");
+                          // Get.toNamed('/detail');
+                          // Navigator.push(context, MaterialPageRoute(builder: (context) =>  Detail()));
+                          // Button action
+                        },
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:[
+                              Image.network(
+                                getDataController.getDataModel.value.data![index].imageUrl ?? 'assets/images/almond.png',
+                                fit: BoxFit.fitWidth,
+                              ),
+
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                                child: Text(
+                                  getDataController.getDataModel.value.data![index].name??"name",
+                                  style: TextStyle(fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ]
+                        ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
-            );
-          },
-        ),
-      )
-    );
+            ) :const Center(
+              child: CircularProgressIndicator(),
+            )
+        ));
   }
 }

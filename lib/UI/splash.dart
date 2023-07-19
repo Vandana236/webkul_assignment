@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-import 'home.dart';
+import 'package:get/get.dart';
+// import 'package:flutter/services.dart';
+//
+// import 'home.dart';
 import 'login.dart';
 
 class SplashPage extends StatefulWidget {
@@ -20,16 +21,17 @@ class _SplashPageState extends State<SplashPage> {
 
   void _navigateToHome() async {
     await Future.delayed(Duration(seconds: 10));
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()),
+    Get.toNamed('/login'
+    // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()),
     );
 
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //   statusBarColor: Colors.transparent,
+    // ));
     return Scaffold(
       body: Container(
         color: Colors.white,
