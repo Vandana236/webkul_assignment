@@ -41,10 +41,10 @@ class LoginController extends GetxController{
      if(response.statusCode==200){
        if (data["status"] == 403)
          {
-           Get.snackbar(data["message"].toString(), 'Incorrect');
+           Get.snackbar(data["message"].toString(),"");
          }
        else {
-           Get.snackbar("Login Successfully", 'congratulation');
+           Get.snackbar("Login Successfully", '');
            Get.toNamed('/home');
          }
      }else{
@@ -70,10 +70,10 @@ class LoginController extends GetxController{
      if(response.statusCode==200){
        if (data["status"] == 403)
        {
-         Get.snackbar(data["message"].toString(), 'Incorrect');
+         Get.snackbar(data["message"].toString(), '');
        }
        else {
-         Get.snackbar("SignUp Successfully", 'congratulation');
+         Get.snackbar("SignUp Successfully", '');
          Get.toNamed('/login');
        }
      }else{

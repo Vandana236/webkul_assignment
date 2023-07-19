@@ -51,8 +51,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   SizedBox(height: 16.0),
                   TextFormField(
                     controller: controller.nameController.value,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null; // Return null if the input is valid
+                    },
                     decoration: InputDecoration(
                       labelText: 'Name',
+                      // validation: (pass) {
+                      //   return RegExpression.emptyTextValidate(
+                      //       pass,
+                      //       context.locale.pleaseEnterThePassword,
+                      //       context);
+                      // },
                     ),
                   ),
                   SizedBox(height: 10,),
@@ -61,6 +73,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                       labelText: 'Email',
                     ),
+                    validator: (val) {
+                      if (val == "") {
+                        return "Please enter email aadress";
+                      } else {
+                        final bool emailValid =
+                        RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                            .hasMatch(val!.trim());
+                        if (emailValid == true) {
+                          return null;
+                        } else {
+                          return "please enter valid email address";
+                        }
+                      } // Return null if the input is valid
+                    },
                   ),
                   SizedBox(height: 10,),
                   TextFormField(
@@ -68,6 +94,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     decoration: InputDecoration(
                       labelText: 'Mobile Number',
                     ),
+                    validator: (val) {
+                      if (val == "") {
+                        return "Please enter mobile number";
+                      } else {
+                        if (val?.length == 10) {
+                          return null;
+                        } else {
+                          return "please valid mobile number";
+                        }
+                      }// Return null if the input is valid
+                    },
                   ),
                   SizedBox(height: 10.0),
                   TextFormField(
@@ -84,13 +121,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       return null;
                     },
                   ),
-                  // TextFormField(
-                  //   controller: controller.passController.value,
-                  //   // obscureText: true,
-                  //   decoration: InputDecoration(
-                  //     labelText: 'Password',
-                  //   ),
-                  // ),
                   SizedBox(height: 10.0),
                   TextFormField(
                     controller: controller.confirmPassController.value,
