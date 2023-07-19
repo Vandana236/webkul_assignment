@@ -31,8 +31,10 @@ class _HomePageState extends State<HomePage> {
     return  Obx(() =>
         Scaffold(
             appBar: AppBar(
-              backgroundColor: Color(0xFF00008B),
-              title: Text("Home"),),
+              backgroundColor: Color(0xFF00008B).withOpacity(0.1),
+              title: Text("Home",
+
+              ),),
             body:   !getDataController.isLoading.value?
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -49,24 +51,27 @@ class _HomePageState extends State<HomePage> {
                           // Navigator.push(context, MaterialPageRoute(builder: (context) =>  Detail()));
                           // Button action
                         },
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children:[
-                              Image.network(
-                                getDataController.getDataModel.value.data![index].imageUrl ?? 'assets/images/almond.png',
-                                fit: BoxFit.fitWidth,
-                              ),
-
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
-                                child: Text(
-                                  getDataController.getDataModel.value.data![index].name??"name",
-                                  style: TextStyle(fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w600),
+                        child: Container(
+                          color: Color(0xFF00008B).withOpacity(0.1),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children:[
+                                Image.network(
+                                  getDataController.getDataModel.value.data![index].imageUrl ?? 'assets/images/almond.png',
+                                  fit: BoxFit.fitWidth,
                                 ),
-                              ),
-                            ]
+
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+                                  child: Text(
+                                    getDataController.getDataModel.value.data![index].name??"name",
+                                    style: TextStyle(fontSize: 18,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                ),
+                              ]
+                          ),
                         ),
                       ),
                     ),
