@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import '../model/course_list.dart';
-import 'home.dart';
+import '../model/video_list.dart';
+import 'courses_listing.dart';
 
 
 class LoginController extends GetxController{
@@ -23,9 +24,8 @@ class LoginController extends GetxController{
  final getDataModel = Rx<AllCourseModel>(AllCourseModel());
  final isLoading = RxBool(true);
 
-
-
-
+ final getVideoModel = Rx<VideoListModel>(VideoListModel());
+ final loading = RxBool(true);
 
 
  void loginApi()async{
@@ -98,5 +98,17 @@ class LoginController extends GetxController{
    isLoading.value = false;
  }
 
-
+ void getVideosFromApi() async {
+   loading.value = true;
+   try {
+     var response = await http.get(Uri.parse('http://13.233.151.69:8081/user/courseVideo?courseId=3'));
+     Map<String, dynamic> jsonData = jsonDecode(response.body);
+     getVideoModel.value = VideoListModel.fromJson(jsonData);
+     // getDataModel.value = AllCourseModel.fromJson(response.body);
+     print(response);
+   } catch (e) {
+     print(e);
+   }
+   loading.value = false;
+}
 }

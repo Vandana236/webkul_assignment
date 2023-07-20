@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:flutter/services.dart';
 //
-// import 'home.dart';
+// import 'courses_listing.dart';
 import 'login.dart';
 
 class SplashPage extends StatefulWidget {

@@ -82,17 +82,17 @@ class _HomePageState extends State<HomePage> {
                 onPageChanged: _onItemTapped,
                 children: [
                   Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: ListView.builder(
-                  itemCount: getDataController.getDataModel.value.data!.length,
-                  itemBuilder: (BuildContext context, int index) {
+                     padding: const EdgeInsets.only(top: 10),
+                    child: ListView.builder(
+                      itemCount: getDataController.getDataModel.value.data!.length,
+                      itemBuilder: (BuildContext context, int index) {
                     return ListTile(
                       title: Padding(
                         padding: const EdgeInsets.only(top: 8.0),
                         child: GestureDetector(
                           onTap: () {
                             print("object");
-                            // Get.toNamed('/detail');
+                             Get.toNamed('/video');
                             // Navigator.push(context, MaterialPageRoute(builder: (context) =>  Detail()));
                             // Button action
                           },
