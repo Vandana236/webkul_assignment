@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:grocery1/UI/login.dart';
-
 import '../database/database_helper.dart';
 import '../model/users.dart';
+import 'login.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -14,6 +13,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
 
   final DatabaseHelper databaseHelper = DatabaseHelper();
@@ -49,86 +49,124 @@ class _SignUpScreenState extends State<SignUpScreen> {
         body:  Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 60),
           child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: (){
-                    Navigator.pop(context);
-                    print("back");
-                  },
-                  child: const Icon(Icons.arrow_back,
-                    color: Color(0xFF00008B),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pop(context);
+                      print("back");
+                    },
+                    child: const Icon(Icons.arrow_back,
+                      color: Color(0xFF00008B),
+                    ),
                   ),
-                ),
-                 const SizedBox(height: 20,),
-                const Center(
-                    child: Text("Sign Up",
-                      style: TextStyle(
-                          fontSize: 35,
-                          color: Color(0xFF00008B),
-                          fontWeight: FontWeight.bold),
-                    )
-                ),
-                const SizedBox(height: 40,),
-                const Text("Create your Account",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.black54,
-                      fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: nameController,
-                  decoration: const InputDecoration(
-                    labelText: 'Name',
+                   const SizedBox(height: 20,),
+                  const Center(
+                      child: Text("Sign Up",
+                        style: TextStyle(
+                            fontSize: 35,
+                            color: Color(0xFF00008B),
+                            fontWeight: FontWeight.bold),
+                      )
                   ),
-                ),
-                const SizedBox(height: 10,),
-                TextField(
-                  controller: emailController,
-
-                  decoration: const InputDecoration(
-                    labelText: 'Email',
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                TextField(
-                  controller: passwordController,
-
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                  ),
-                ),
-                const SizedBox(height: 16.0),
-                 TextField(
-                  controller: confirmPasswordController,
-
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Confirm Password',
-                  ),
-                ),
-                const SizedBox(height: 40,),
-                ElevatedButton(
-                  onPressed: signUp,
-                  // style: ElevatedButton.styleFrom(
-                  //   primary: Colors.blue, // Set the background color
-                  //   onPrimary: Colors.white, // Set the text color
-                  // ),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF00008B)),
-
-                    minimumSize: MaterialStateProperty.all(const Size(350, 50)), // Adjust the desired size
-                  ),
-                  child: const Text('Sign Up',
+                  const SizedBox(height: 40,),
+                  const Text("Create your Account",
                     style: TextStyle(
-                      fontSize: 18,),),
-                ),
-                const SizedBox(height: 50.0),
-              ],
+                        fontSize: 20,
+                        color: Colors.black54,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    controller: nameController,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'This field is required';
+                      }
+                      return null; // Return null if the input is valid
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Name',
+                    ),
+                  ),
+                  const SizedBox(height: 10,),
+                  TextFormField(
+                    controller: emailController,
+                    validator: (val) {
+                      if (val == "") {
+                        return "Please enter email aadress";
+                      } else {
+                        final bool emailValid =
+                        RegExp(r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$')
+                            .hasMatch(val!.trim());
+                        if (emailValid == true) {
+                          return null;
+                        } else {
+                          return "please enter valid email address";
+                        }
+                      } // Return null if the input is valid
+                    },
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    controller: passwordController,
+                    validator: (val) {
+                      if (val!.isEmpty) {
+                        return 'Password is required';
+                      }
+                      // if (value.length < 6) {
+                      //   return 'Password must be at least 6 characters long';
+                      // }
+                      return null;
+                    },
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                    ),
+                  ),
+                  const SizedBox(height: 16.0),
+                  TextFormField(
+                    controller: confirmPasswordController,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Confirm Password is required';
+                      }
+                      // if (value.length < 6) {
+                      //   return 'Password must be at least 6 characters long';
+                      // }
+                      return null;
+                    },
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Confirm Password',
+                    ),
+                  ),
+                  const SizedBox(height: 40,),
+                  ElevatedButton(
+                      onPressed: (){
+                        if(_formKey.currentState!.validate()){
+                          signUp();
+                        }
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFF00008B)),
+
+                      minimumSize: MaterialStateProperty.all(const Size(350, 50)), // Adjust the desired size
+                    ),
+                    child: const Text('Sign Up',
+                      style: TextStyle(
+                        fontSize: 18,),),
+                  ),
+                  const SizedBox(height: 50.0),
+                ],
+              ),
             ),
           ),
         )

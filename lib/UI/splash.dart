@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grocery1/UI/product/product_listing.dart';
 import 'login.dart';
 
 class SplashPage extends StatefulWidget {
@@ -18,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void _navigateToHome() async {
-    await Future.delayed(Duration(seconds: 10));
+    await Future.delayed(Duration(seconds: 3));
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LogIn()),
     );
 

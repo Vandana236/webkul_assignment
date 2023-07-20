@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery1/UI/product/product_detail_screen.dart';
 import 'package:provider/provider.dart';
-
 import '../../provider/cart_provider.dart';
 import '../../provider/product_provider.dart';
 import '../login.dart';
@@ -25,6 +24,7 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text('Product Listing'),
         actions: [
           Stack(
@@ -103,66 +103,71 @@ class _ProductListingScreenState extends State<ProductListingScreen> {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(8.0),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8.0),
-                        topRight: Radius.circular(8.0),
-                      ),
-                      child: Image.network(
-                        product.image,
-                        fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          topRight: Radius.circular(10),
+                        ),
+                        child: Center(
+                          child: Image.network(
+                            product.image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          product.title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16.0,
-                          ),
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        SizedBox(height: 4.0),
-                        Text(
-                          'INR ${product.price.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14.0,
-                            color: Colors.green,
-                          ),
-                        ),
-                        SizedBox(height: 4.0),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.star,
-                              size: 16.0,
-                              color: Colors.yellow,
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            product.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16.0,
                             ),
-                            SizedBox(width: 4.0),
-                            Text(
-                              product.rating.toString(),
-                              style: TextStyle(
-                                fontSize: 14.0,
-                                color: Colors.grey[600],
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          SizedBox(height: 4.0),
+                          Text(
+                            'INR ${product.price.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14.0,
+                              color: Colors.green,
+                            ),
+                          ),
+                          SizedBox(height: 4.0),
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.star,
+                                size: 16.0,
+                                color: Colors.yellow,
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
+                              SizedBox(width: 4.0),
+                              Text(
+                                product.rating.toString(),
+                                style: TextStyle(
+                                  fontSize: 14.0,
+                                  color: Colors.grey[600],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );
