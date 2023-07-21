@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery1/UI/video_player.dart';
-import 'package:video_player/video_player.dart';
 import 'package:get/get.dart';
-
 import 'login_controller.dart';
 
 class VideoListing extends StatefulWidget {
@@ -21,20 +19,11 @@ class _VideoListingState extends State<VideoListing> {
   void initState() {
     super.initState();
     videoController.getVideosFromApi();
-    //final dataModel = videoController.getVideoModel.value;
-    // _controller = VideoPlayerController.networkUrl(Uri.parse(dataModel.data![0].url!))
-    //   ..initialize().then((_) {
-    //     // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-    //     setState(() {});
-    //   });
-    // setState(() {});
   }
 
   @override
   void dispose() {
-    // if (_controller.value.isInitialized) {
-    //   _controller.dispose();
-    // }
+    // _controller.dispose();
     super.dispose();
   }
 
@@ -63,15 +52,12 @@ class _VideoListingState extends State<VideoListing> {
                           width: MediaQuery.of(context).size.width,
                           child: VideoPlayerScreen(videoUrl:  video.url!)),
                       Text(video.name!,
-                        style: TextStyle(fontSize: 18,
+                        style: const TextStyle(fontSize: 18,
                             color: Colors.black,
                             fontWeight: FontWeight.w600),
                       ),
                     ],
                   ),
-                  // onTap: () {
-                  //   // _playVideo(context, video.imageUrl);
-                  // },
                 );
               },
             );
