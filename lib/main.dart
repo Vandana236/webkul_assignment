@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'UI/course_data_list.dart';
 import 'UI/data_Detail.dart';
 import 'UI/courses_listing.dart';
 import 'UI/login.dart';
 import 'UI/signUp.dart';
 import 'UI/splash.dart';
 import 'UI/video_listing.dart';
+import 'model/video_list.dart';
+// import 'package:better_player/better_player.dart';
 
 
 void main() {
@@ -31,6 +34,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/signup', page: () => SignUpScreen()),
         GetPage(name: '/home', page: () => HomePage()),
         GetPage(name: '/video', page: () => VideoListing()),
+        GetPage(name: '/courseList', page: () => CourseDataList()),
         GetPage(name: '/detail', page: () => Detail()),
       ],
     );

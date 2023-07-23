@@ -92,7 +92,8 @@ class _HomePageState extends State<HomePage> {
                         child: GestureDetector(
                           onTap: () {
                             print("object");
-                             Get.toNamed('/video');
+                            Get.toNamed('/courseList');
+                             // Get.toNamed('/video');
                             // Navigator.push(context, MaterialPageRoute(builder: (context) =>  Detail()));
                             // Button action
                           },
