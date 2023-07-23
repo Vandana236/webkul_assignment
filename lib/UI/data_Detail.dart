@@ -40,8 +40,7 @@ class _DetailState extends State<Detail> {
           } else {
             return SizedBox(
                 height: 250,
-                width:
-                MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width,
                 child:
                 // BetterPlayer.network(videoController.getVideoModel.value.data![0].url!,
                 // betterPlayerConfiguration: const BetterPlayerConfiguration(aspectRatio: 16/9),)

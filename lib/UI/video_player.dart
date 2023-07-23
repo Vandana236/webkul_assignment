@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:video_player/video_player.dart';
 // import 'package:chewie/chewie.dart';
 
@@ -13,6 +14,7 @@ class VideoPlayerScreen extends StatefulWidget {
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _controller;
+  bool _isFullScreen = false;
   String _formatDurationInSeconds(Duration duration) {
     return '${duration.inSeconds}';
   }
@@ -70,19 +72,46 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     return '$twoDigitMinutes:$twoDigitSeconds';
   }
 
+  void _toggleFullScreen() {
+    setState(() {
+      _isFullScreen = !_isFullScreen;
+    });
+
+    if (_isFullScreen) {
+      SystemChrome.setEnabledSystemUIOverlays([]);
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.landscapeLeft,
+        DeviceOrientation.landscapeRight,
+      ]);
+    } else {
+      SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+      SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+      ]);
+    }
+  }
+
+  void _seekForward() {
+    Duration newPosition = _controller.value.position + Duration(seconds: 1);
+    if (newPosition > _controller.value.duration) {
+      newPosition = _controller.value.duration;
+    }
+    _controller.seekTo(newPosition);
+  }
+
+  void _seekBackward() {
+    Duration newPosition = _controller.value.position - Duration(seconds: 1);
+    if (newPosition < Duration.zero) {
+      newPosition = Duration.zero;
+    }
+    _controller.seekTo(newPosition);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body:
-      // _controller.value.isInitialized?
-      //     Padding(padding: EdgeInsets.symmetric(vertical: 10),
-      //     child: Chewie(
-      //       controller: _chewieController,
-      //     )
-      //     ):Center(
-      //   child: CircularProgressIndicator(),
-      // )
-
       Stack(
          children: [
            Center(
@@ -115,19 +144,79 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                    size: 50,
                  )),
                )),
+           // Positioned(
+           //   top: 10,
+           //   left: 0,
+           //   right: 170,
+           //   bottom: 10,
+           //   child: IconButton(
+           //     icon: Icon(
+           //       Icons.replay_10,
+           //       size: 30,
+           //       color: Colors.white,
+           //     ),
+           //     onPressed: (){
+           //       print("back");
+           //       _seekBackward;
+           //     }
+           //   ),
+           // ),
+           // Positioned(
+           //   top: 10,
+           //   left: 170,
+           //   right:  0,
+           //   bottom: 10,
+           //   child: IconButton(
+           //       icon: Icon(
+           //         Icons.replay_10,
+           //         size: 30,
+           //         color: Colors.white,
+           //       ),
+           //       onPressed: (){
+           //         print("next");
+           //         _seekForward;
+           //       }
+           //
+           //   ),
+           // ),
+           Positioned(
+              bottom: _isFullScreen ? 10.0 : MediaQuery.of(context).padding.top + 10.0,
+             right: _isFullScreen ? 0.0 : 0.0,
+             child: IconButton(
+               icon: Icon(
+                 _isFullScreen ? Icons.fullscreen_exit : Icons.fullscreen,
+                 size: 30,
+                 color: Colors.red,
+               ),
+               onPressed: _toggleFullScreen,
+             ),
+           ),
            _controller.value.isInitialized
                ? Positioned(
-             bottom: 0,
-             left: 0,
-             right: 0,
+             bottom: _isFullScreen ? 0 : 0,
+             left: 10.0,
+             right: 40.0,
              child: Column(
                children: [
-                 // LinearProgressIndicator(
-                 //   value: _controller.value.position.inMilliseconds /
-                 //       _controller.value.duration.inMilliseconds,
-                 //   valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-                 //   backgroundColor: Colors.grey,
-                 // ),
+                 Row(
+                   mainAxisAlignment: MainAxisAlignment.spaceBetween, // Center the buttons
+                   children: [
+                     IconButton(
+                       icon: Icon(
+                         Icons.replay_10,
+                         color: Colors.red,
+                       ),
+                       onPressed: _seekBackward,
+                     ),
+                     IconButton(
+                       icon: Icon(
+                         Icons.forward_10,
+                         color: Colors.red,
+                       ),
+                       onPressed: _seekForward,
+                     ),
+                   ],
+                 ),
                  Container(
                    color: Colors.black.withOpacity(0.5),
                    child: SliderTheme(
@@ -138,11 +227,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                        tickMarkShape: RoundSliderTickMarkShape(),
                        valueIndicatorShape: PaddleSliderValueIndicatorShape(),
                        trackShape: RectangularSliderTrackShape(),
-
-
-                       // Here, we remove the padding around the Slider
-                       // by setting the overlayInsets to EdgeInsets.zero
-
                      ),
                      child: Slider(
                        value: _controller.value.position.inSeconds.toDouble(),
@@ -160,7 +244,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                    ),
                  ),
                  Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 8),
+                   padding: const EdgeInsets.symmetric(horizontal: 10),
                    child: Row(
                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                      children: [
