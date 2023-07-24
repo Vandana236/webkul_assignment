@@ -30,25 +30,32 @@ class _DetailState extends State<Detail> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF00008B).withOpacity(0.1),
-        title: const Text("video Detail"),
-      ),
-      body:  Obx(() {
-          if (videoController.isLoading.value) {
-            return const CircularProgressIndicator();
-          } else {
-            return SizedBox(
-                height: 250,
-                width: MediaQuery.of(context).size.width,
-                child:
-                // BetterPlayer.network(videoController.getVideoModel.value.data![0].url!,
-                // betterPlayerConfiguration: const BetterPlayerConfiguration(aspectRatio: 16/9),)
-                VideoPlayerScreen(videoUrl:
-                videoController.getVideoModel.value.data![0].url!)
-            );
-          }
-      })
+      backgroundColor: Colors.black,
+      body:   Container(
+        color: Colors.black,
+        child: Stack(
+          children: [
+            Obx(() {
+              if (videoController.isLoading.value) {
+                return const CircularProgressIndicator();
+              } else {
+                return VideoPlayerScreen(videoUrl:
+                videoController.getVideoModel.value.data![0].url!);
+              }
+            }),
+            Positioned(
+                top: MediaQuery.of(context).padding.top + 10.0,
+                left: 10.0,
+                child: IconButton(
+                  icon: Icon(
+                    Icons.arrow_back_ios,
+                    color: Colors.white,
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                ),)
+          ],
+        ),
+      )
     );
   }
 }
